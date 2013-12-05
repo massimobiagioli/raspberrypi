@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RaspyBoxDroid</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="device">dispositivo</string>
+    <string name="On">On</string>
+    <string name="Off">Off</string>
+    <string name="title_activity_settings">Impostazioni</string>
+    <string name="raspberrypi_info">Raspberry PI Info</string>
+    <string name="ip_address">Indirizzo IP</string>
+    <string name="summary_ip_address">Inserire indirizzo IP del Raspberry PI</string>
+    <string name="raspberrypi_address">Indirizzo IP Raspberry PI</string>
+    <string name="raspberrypi_missing_address">Inserire indirizo IP Raspberry PI</string>
+    <string name="port">Porta</string>
+    <string name="summary_port">Porta su cui gira il servizio</string>
+
+</resources>

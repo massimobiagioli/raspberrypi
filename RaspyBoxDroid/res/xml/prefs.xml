@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<PreferenceCategory
+	   	android:summary="Raspberry PI Info"
+	   	android:title="@string/raspberrypi_info" >
+		<EditTextPreference
+	    	android:key="ip_address"
+	     	android:summary="@string/summary_ip_address"
+	     	android:title="@string/ip_address" />
+		<EditTextPreference
+	    	android:key="port"
+	     	android:summary="@string/summary_port"
+	     	android:title="@string/port" />
+	</PreferenceCategory>
+</PreferenceScreen>
