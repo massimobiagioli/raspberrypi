@@ -1,0 +1,114 @@
+<html>
+	<head>
+		<title>Server Test</title>
+		<script type="text/javascript" src="jquery-1.7.2-min.js"></script>
+		<script type="text/javascript" src="moment.js"></script>		
+		<script type="text/javascript" src="hmac-sha256.js"></script>
+		<script type="text/javascript">
+			function deviceTypeList() {				
+				var timestamp = moment().format('YYYYMMDDhhmmssSSS');
+				var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, "segreta");
+				hmac.update("segreta");
+				var hash = hmac.finalize();				
+				
+				$.ajax({
+					type: "GET",
+					url: "http://localhost:3000/api/list/device_type",					
+        			dataType: "json",					
+					headers: {
+						'X-Auth': hash,
+						'X-Timestamp': timestamp
+					}
+				})
+				.done(function(result) {
+					console.log(result)
+				});
+			}
+			
+			function deviceTypeGet() {
+				var timestamp = moment().format('YYYYMMDDhhmmssSSS');
+
+				$.ajax({
+					type: "GET",
+					url: "http://localhost:3000/api/get/device_type/2",					
+        			dataType: "json",					
+					headers: {
+						'X-Auth': "QWERTY123xyz",
+						'X-Timestamp': timestamp
+					}
+				})
+				.done(function(result) {
+					console.log(result)
+				});				
+			}
+			
+			function deviceTypeInsert() {
+				var timestamp = moment().format('YYYYMMDDhhmmssSSS');
+
+				$.ajax({
+					type: "POST",
+					url: "http://localhost:3000/api/insert/device_type",					
+        			dataType: "json",					
+					headers: {
+						'X-Auth': "QWERTY123xyz",
+						'X-Timestamp': timestamp
+					},
+					data: {
+						"name": "demo"
+					}
+				})
+				.done(function(result) {
+					console.log(result)
+				});				
+			}			
+			
+			function deviceTypeUpdate() {
+				var timestamp = moment().format('YYYYMMDDhhmmssSSS');
+
+				$.ajax({
+					type: "POST",
+					url: "http://localhost:3000/api/update/device_type/2",					
+        			dataType: "json",					
+					headers: {
+						'X-Auth': "QWERTY123xyz",
+						'X-Timestamp': timestamp
+					},
+					data: {
+						"name": "demo"												
+					}
+				})
+				.done(function(result) {
+					console.log(result)
+				});				
+			}			
+			
+			function deviceTypeDelete() {
+				var timestamp = moment().format('YYYYMMDDhhmmssSSS');
+
+				$.ajax({
+					type: "DELETE",
+					url: "http://localhost:3000/api/delete/device_type/2",					
+        			dataType: "json",					
+					headers: {
+						'X-Auth': "QWERTY123xyz",
+						'X-Timestamp': timestamp
+					}
+				})
+				.done(function(result) {
+					console.log(result)
+				});				
+			}			
+		</script>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td><button onclick="deviceTypeList();">LIST</button></td>
+				<td><button onclick="deviceTypeGet();">GET</button></td>
+				<td><button onclick="deviceTypeInsert();">INSERT</button></td>
+				<td><button onclick="deviceTypeUpdate();">UPDATE</button></td>
+				<td><button onclick="deviceTypeDelete();">DELETE</button></td>
+			</tr>
+		</table>		
+	</body>
+</html>
