@@ -7,16 +7,30 @@
 		<script type="text/javascript">
 			function deviceTypeList() {				
 				var timestamp = moment().format('YYYYMMDDhhmmssSSS');
-				var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, "segreta");
-				hmac.update("segreta");
+				var username = "unit"
+				var password = "Un1t&";
+				
+				// Salt password
+				var saltedPassword = (function() {
+					var key = username + password + timestamp;
+					var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, key);
+					hmac.update(timestamp);
+					var salt = hmac.finalize();
+					
+					return password + salt;
+				})();
+				
+				var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, saltedPassword);
+				hmac.update(password + username + timestamp + saltedPassword);
 				var hash = hmac.finalize();				
 				
 				$.ajax({
 					type: "GET",
 					url: "http://localhost:3000/api/list/device_type",					
         			dataType: "json",					
-					headers: {
+					headers: {						
 						'X-Auth': hash,
+						'X-Username': username,
 						'X-Timestamp': timestamp
 					}
 				})
