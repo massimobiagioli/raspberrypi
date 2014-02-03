@@ -7,7 +7,7 @@ AccessControlAllowOrigin = 'Access-Control-Allow-Origin'
 
 def cross_origin(origins='*', methods=['GET','HEAD','POST','OPTIONS','PUT'],
            headers=None, supports_credentials=False, max_age=None, 
-           send_wildcard=True, always_send=True, automatic_options=False):
+           send_wildcard=False, always_send=True, automatic_options=False):
     methods = methods or ['GET','HEAD','POST','OPTIONS','PUT']
     methods = ', '.join(sorted(x.upper() for x in methods))
 
@@ -28,7 +28,7 @@ def cross_origin(origins='*', methods=['GET','HEAD','POST','OPTIONS','PUT'],
             elif not wildcard and not always_send and not request.headers.get('Origin', '') in origins:
                 return make_response(f(*args, **kwargs))
 
-            if automatic_options and request.method == 'OPTIONS':
+            if request.method == 'OPTIONS':
                 resp = current_app.make_default_options_response()
             else:
                 resp = make_response(f(*args, **kwargs))

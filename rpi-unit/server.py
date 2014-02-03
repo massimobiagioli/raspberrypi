@@ -88,7 +88,7 @@ def read_user_password(username):
     return xor_decrypt(row[0].encode('ascii', 'ignore'), CRYPT_KEY)
 
 @app.route('/api/list/<tablekey>', methods=['OPTIONS', 'GET'])
-@cross_origin(headers=['X-Auth', 'X-Timestamp'])
+@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
 def model_list(tablekey):
     """
     CRUD: list
