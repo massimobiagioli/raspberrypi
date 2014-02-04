@@ -108,7 +108,7 @@ def model_list(tablekey):
         return Response(ERR_MSG_500, 500)
 
 @app.route('/api/get/<tablekey>/<int:tableid>', methods=['OPTIONS', 'GET'])
-@cross_origin(headers=['X-Auth', 'X-Timestamp'])
+@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
 def model_get(tablekey, tableid):
     """
     CRUD: get
@@ -129,7 +129,7 @@ def model_get(tablekey, tableid):
         return Response(ERR_MSG_500, 500)
 
 @app.route('/api/insert/<tablekey>', methods=['OPTIONS', 'POST'])
-@cross_origin(headers=['X-Auth', 'X-Timestamp'])
+@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
 def model_insert(tablekey):
     """
     CRUD: insert
@@ -151,7 +151,7 @@ def model_insert(tablekey):
         return Response(ERR_MSG_500, 500)
 
 @app.route('/api/update/<tablekey>/<int:tableid>', methods=['OPTIONS', 'POST'])
-@cross_origin(headers=['X-Auth', 'X-Timestamp'])
+@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
 def model_update(tablekey, tableid):
     """
     CRUD: update
@@ -173,7 +173,7 @@ def model_update(tablekey, tableid):
         return Response(ERR_MSG_500, 500)
 
 @app.route('/api/delete/<tablekey>/<int:tableid>', methods=['OPTIONS', 'DELETE'])
-@cross_origin(headers=['X-Auth', 'X-Timestamp'])
+@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
 def model_delete(tablekey, tableid):
     """
     CRUD: delete
@@ -196,5 +196,5 @@ def model_delete(tablekey, tableid):
 
 ### MAIN ############################################    
 if __name__ == '__main__':    
-    app.run(app.config['HOST'], debug=app.config['DEBUG'], port=app.config['PORT'])
+    app.run(app.config['HOST'], port=app.config['PORT'], debug=app.config['DEBUG'])
     
