@@ -129,7 +129,7 @@ def model_get(tablekey, tableid):
         return Response(ERR_MSG_500, 500)
 
 @app.route('/api/insert/<tablekey>', methods=['OPTIONS', 'POST'])
-@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
+@cross_origin(headers=['Content-Type', 'X-Auth', 'X-Username', 'X-Timestamp'])
 def model_insert(tablekey):
     """
     CRUD: insert
@@ -140,10 +140,10 @@ def model_insert(tablekey):
     """
     try:
         if check_aut(request):
-            columns = ', '.join(request.values.keys())
-            placeholders = ', '.join('?' * len(request.values))        
+            columns = ', '.join(request.json.keys())
+            placeholders = ', '.join('?' * len(request.json))        
             sql = 'INSERT INTO ' + table_mapping[tablekey]['name'] + ' ({}) VALUES ({})'.format(columns, placeholders)
-            cursor = g.db.execute(sql, request.values.values())
+            cursor = g.db.execute(sql, request.json.values())
             return json.dumps(str(cursor.lastrowid))
         else:
             return Response(ERR_MSG_401, 401)        
@@ -151,7 +151,7 @@ def model_insert(tablekey):
         return Response(ERR_MSG_500, 500)
 
 @app.route('/api/update/<tablekey>/<int:tableid>', methods=['OPTIONS', 'POST'])
-@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
+@cross_origin(headers=['Content-Type', 'X-Auth', 'X-Username', 'X-Timestamp'])
 def model_update(tablekey, tableid):
     """
     CRUD: update
@@ -163,9 +163,9 @@ def model_update(tablekey, tableid):
     """
     try:
         if check_aut(request):
-            values = ', '.join('{}=?'.format(k) for k in request.values)       
+            values = ', '.join('{}=?'.format(k) for k in request.json)       
             sql = 'UPDATE ' + table_mapping[tablekey]['name'] + ' SET {} WHERE id={}'.format(values, str(tableid))        
-            g.db.execute(sql, request.values.values())
+            g.db.execute(sql, request.json.values())
             return json.dumps(str(tableid))
         else:
             return Response(ERR_MSG_401, 401)   
@@ -173,7 +173,7 @@ def model_update(tablekey, tableid):
         return Response(ERR_MSG_500, 500)
 
 @app.route('/api/delete/<tablekey>/<int:tableid>', methods=['OPTIONS', 'DELETE'])
-@cross_origin(headers=['X-Auth', 'X-Username', 'X-Timestamp'])
+@cross_origin(headers=['Content-Type', 'X-Auth', 'X-Username', 'X-Timestamp'])
 def model_delete(tablekey, tableid):
     """
     CRUD: delete
