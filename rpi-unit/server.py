@@ -172,7 +172,7 @@ def model_update(tablekey, tableid):
     except:
         return Response(ERR_MSG_500, 500)
 
-@app.route('/api/delete/<tablekey>/<int:tableid>', methods=['OPTIONS', 'DELETE'])
+@app.route('/api/delete/<tablekey>/<int:tableid>', methods=['OPTIONS', 'POST'])
 @cross_origin(headers=['Content-Type', 'X-Auth', 'X-Username', 'X-Timestamp'])
 def model_delete(tablekey, tableid):
     """
